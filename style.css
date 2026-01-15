@@ -1,33 +1,84 @@
-body{
+body {
     margin: 0;
-    background: #000;
+    background: radial-gradient(circle at center, #00152a 0%, #000 100%);
     overflow: hidden;
     color: white;
-    font-family:sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-scene{
+#scene {
     width: 100vw;
     height: 100vh;
-    perspective: 800px;
-    overflow: hidden
+    perspective: 1000px;
 }
 
-.star{
+.star {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: white;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #fff 0%, #00ffff 60%, transparent 100%);
     border-radius: 50%;
-    box-shadow: 0 0 10px white;
+    box-shadow: 0 0 20px cyan;
+    display: flex;
+    justify-content: center;
     transition: transform 0.1s linear;
+    cursor: pointer;
 }
 
-.ui{
+.star span {
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+    transition: 0.3s;
+}
+
+/* Animated Neural Lines */
+.neural-line {
+    stroke-dasharray: 10;
+    animation: pulseFlow 2s linear infinite;
+}
+
+@keyframes pulseFlow {
+    from { stroke-dashoffset: 20; }
+    to { stroke-dashoffset: 0; }
+}
+
+.ui {
     position: fixed;
-    bottom: 20px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 25px;
+    border-radius: 40px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
     display: flex;
-    gap: 10px;
+    gap: 15px;
+}
+
+#taskInput {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid cyan;
+    color: white;
+    outline: none;
+    width: 200px;
+}
+
+button {
+    background: cyan;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 20px cyan;
+    transform: scale(1.05);
 }
