@@ -50,7 +50,7 @@ function addStar() {
     render();
 }
 
-/
+
 function render() {
     const lineContainer = document.getElementById('lines');
     let svgContent = "";
