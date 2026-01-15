@@ -1,32 +1,36 @@
+/* --- GLOBAL RESET & ENVIRONMENT --- */
 body {
     margin: 0;
-    /* Deep "Midnight" Gradient - Pure and smooth */
+    /* Smooth "Matte Space" gradient for a premium look */
     background: linear-gradient(180deg, #050a0f 0%, #000000 100%);
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Prevents scrollbars from interfering with 3D movement */
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Base container for 3D perspective math */
 #scene {
     width: 100vw;
     height: 100vh;
-    perspective: 1000px;
+    perspective: 1000px; /* Determines the intensity of the Z-axis depth */
     position: relative;
-    /* A very subtle inner glow to give the screen "depth" */
+    /* Internal glow to add subtle ambient lighting to the scene */
     box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05);
 }
+
+/* The active area for task entities. Shifted up to avoid the UI Dock */
 #galaxy {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    /* This prevents stars from being clickable or visible behind the UI dock */
-    height: calc(100vh - 100px); 
-    pointer-events: none;
+    height: calc(100vh - 100px); /* Restricts the 'playable' area above the UI */
+    pointer-events: none; /* Allows clicking through the empty void */
     z-index: 5;
 }
 
+/* --- NEURAL ENTITIES (STARS) --- */
 .star {
     position: absolute;
     width: 14px;
@@ -34,12 +38,14 @@ body {
     border-radius: 50%;
     display: flex;
     justify-content: center;
+    /* Linear transform transition for smooth scroll/movement updates */
     transition: transform 0.1s linear, opacity 0.3s ease;
     cursor: pointer;
     z-index: 10;
-    pointer-events: auto; /* Required to click stars inside a pointer-events: none container */
+    pointer-events: auto; /* Re-enables interaction for the individual entities */
 }
 
+/* Task labels positioned relative to their star */
 .star span {
     position: absolute;
     top: 22px;
@@ -47,24 +53,26 @@ body {
     text-shadow: 0 0 10px rgba(0,0,0,0.8);
     transition: opacity 0.3s ease, transform 0.3s ease;
     font-weight: bold;
-    pointer-events: none;
-}
-.star:hover {
-    z-index: 1000; /* Bring hovered star to the very front */
-    box-shadow: 0 0 40px white !important; /* Extra glow on hover */
+    pointer-events: none; /* Prevents text from blocking clicks on the star */
 }
 
-/* Neural lines sit between bg and stars */
+/* Interactive feedback for task inspection */
+.star:hover {
+    z-index: 1000; /* Ensures the hovered task is rendered above all others */
+    box-shadow: 0 0 40px white !important; /* Highlights selection */
+}
+
+/* SVG Container for domain-based connecting lines */
 #lines {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 2; /* Sits behind stars but in front of the background */
 }
 
-/* --- UI DOCK STYLES --- */
+/* --- UI DOCK (CONTROLS) --- */
 .ui {
     position: fixed;
     bottom: 0;
@@ -72,8 +80,8 @@ body {
     width: 100%;
     height: 100px;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.85); /* High opacity to hide stars moving behind it */
+    backdrop-filter: blur(15px); /* Glassmorphism effect */
     border-top: 1px solid rgba(0, 255, 255, 0.3);
     display: flex;
     justify-content: center;
@@ -81,6 +89,7 @@ body {
     gap: 15px;
 }
 
+/* Styled text fields and dropdown menus */
 #taskInput, select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(0, 255, 255, 0.3);
@@ -88,11 +97,11 @@ body {
     color: white;
     padding: 10px 15px;
     outline: none;
-    font-family: 'Segoe UI', sans-serif;
     font-size: 14px;
     transition: 0.3s;
 }
 
+/* Ensure dropdown options are legible against the dark background */
 select option {
     background: #030812; 
     color: white;
@@ -103,6 +112,7 @@ select option {
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
 }
 
+/* Primary "Birth Star" action button */
 button {
     background: cyan;
     border: none;
@@ -124,22 +134,27 @@ button:hover {
 }
 
 button:active {
-    transform: scale(0.95);
+    transform: scale(0.95); /* Tactile feedback on click */
 }
+
+/* Danger-action button (Reset/Clear) */
 #clearBtn {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: white;
     padding: 10px 15px;
-    font-size: 11px; /* Smaller font to distinguish it */
+    font-size: 11px;
 }
 
 #clearBtn:hover {
-    background: rgba(255, 0, 0, 0.2); /* Subtle red glow on hover */
+    background: rgba(255, 0, 0, 0.2);
     border-color: #ff4444;
     box-shadow: 0 0 15px rgba(255, 68, 68, 0.4);
     color: #ff4444;
 }
+
+/* --- ANIMATION EFFECTS --- */
+/* Fragments created during task completion (explosion effect) */
 .particle {
     position: absolute;
     width: 4px;
@@ -147,5 +162,6 @@ button:active {
     border-radius: 50%;
     pointer-events: none;
     z-index: 6;
+    /* Velocity and fade handled by JavaScript transform injection */
     transition: transform 0.8s ease-out, opacity 0.8s ease-out;
 }
