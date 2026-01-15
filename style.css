@@ -1,6 +1,7 @@
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #00152a 0%, #000 100%);
+    /* Deep Space Nebula Background */
+    background: radial-gradient(circle at center, #081221 0%, #030812 70%, #000 100%);
     overflow: hidden;
     color: white;
     font-family: 'Segoe UI', sans-serif;
@@ -10,96 +11,95 @@ body {
     width: 100vw;
     height: 100vh;
     perspective: 1000px;
+    position: relative;
 }
 
 .star {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, #fff 0%, #00ffff 60%, transparent 100%);
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    box-shadow: 0 0 20px cyan;
     display: flex;
     justify-content: center;
-    transition: transform 0.1s linear;
+    transition: transform 0.1s linear, opacity 0.3s ease;
     cursor: pointer;
+    z-index: 5;
 }
 
 .star span {
     position: absolute;
-    top: 20px;
+    top: 22px;
     white-space: nowrap;
-    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
     transition: 0.3s;
-}
-
-/* Animated Neural Lines */
-.neural-line {
-    stroke-dasharray: 10;
-    animation: pulseFlow 2s linear infinite;
-}
-
-@keyframes pulseFlow {
-    from { stroke-dashoffset: 20; }
-    to { stroke-dashoffset: 0; }
+    font-weight: bold;
 }
 
 .ui {
     position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px 25px;
-    border-radius: 40px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85); /* Darker for better contrast */
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-top: 1px solid rgba(0, 255, 255, 0.3);
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 15px;
 }
 
-#taskInput {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid cyan;
-    color: white;
-    outline: none;
-    width: 200px;
-}
-
-button {
-    background: cyan;
-    border: none;
-    padding: 8px 20px;
+#taskInput, select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
     border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
+    color: white;
+    padding: 10px 15px;
+    outline: none;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
     transition: 0.3s;
 }
 
+select option {
+    background: #030812; 
+    color: white;
+}
+#taskInput:focus, select:focus {
+    border-color: cyan;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+button {
+    background: cyan;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s all ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
 button:hover {
-    box-shadow: 0 0 20px cyan;
+    background: white;
+    box-shadow: 0 0 25px cyan;
     transform: scale(1.05);
 }
 
-/* Make Urgent stars pulse faster to catch your eye */
-.star[style*="scale(1)"] { /* High priority stars are larger */
-    animation: urgentPulse 1.5s infinite alternate;
+button:active {
+    transform: scale(0.95);
 }
-
-@keyframes urgentPulse {
-    from { filter: brightness(1); box-shadow: 0 0 20px cyan; }
-    to { filter: brightness(1.8); box-shadow: 0 0 40px white; }
-}
-
-/* Background "Space Dust" */
-#scene::before {
-    content: "";
+/* Neural lines sit between bg and stars */
+#lines {
     position: absolute;
-    width: 200%; height: 200%;
-    background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px);
-    background-size: 100px 100px;
-    opacity: 0.05;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
 }
