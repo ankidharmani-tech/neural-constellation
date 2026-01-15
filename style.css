@@ -1,0 +1,33 @@
+body{
+    margin: 0;
+    background: #000;
+    overflow: hidden;
+    color: white;
+    font-family:sans-serif;
+}
+
+scene{
+    width: 100vw;
+    height: 100vh;
+    perspective: 800px;
+    overflow: hidden
+}
+
+.star{
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+    transition: transform 0.1s linear;
+}
+
+.ui{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
