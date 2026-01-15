@@ -17,6 +17,7 @@ function addStar() {
     const M = parseInt(document.getElementById('custom-minutes').value) || 0;
     const S = parseInt(document.getElementById('custom-seconds').value) || 0;
 
+   const starLyf=(H*3600)+(M*60)+S
 
     if (!Tinput.value.trim()) {
         //changes the border color red if task is empty
@@ -38,6 +39,7 @@ function addStar() {
         y: domainConfig.y + (Math.random() - 0.5) * 400,
         z: priority === 'high' ? -300 : -1500, // Urgent is closer
         color: domainConfig.color,
+        timeleft:starLyf>0?starLyf:null,
         el: document.createElement('div')
     };
 
@@ -60,7 +62,11 @@ function addStar() {
     galaxy.appendChild(starData.el);
     stars.push(starData);
     saveGalaxy(); // Save the new star
-    input.value = '';
+    Tinput.value = '';
+    document.getElementById('custom-hours').value='';
+    document.getElementById('custom-minutes').value='';
+    document.getElementById('custom-seconds').value='';
+
     render();
 }
 // Updated Render for Domain-Specific Lines
@@ -111,7 +117,13 @@ window.addEventListener('wheel', (e) => {
 // save to local storage
 function saveGalaxy() {
     const data = stars.map(s => ({
-        name: s.name, x: s.x, y: s.y, z: s.z, color: s.color, domain: s.domain
+        color: s.color,
+        domain: s.domain,
+        name: s.name,
+        x: s.x,
+        y: s.y,
+        z: s.z,
+        timeleft:s.timeleft
     }));
     localStorage.setItem('myNeuralGalaxy', JSON.stringify(data));
 }
@@ -122,7 +134,7 @@ window.onload = () => {
     if (saved) {
         const parsed = JSON.parse(saved);
         parsed.forEach(data => {
-            // recreates each star from lcoal storage
+            // recreates each star from local storage
             const starData = { ...data, el: document.createElement('div') };
             starData.el.className = 'star';
             starData.el.style.background = `radial-gradient(circle, #fff 0%, ${data.color} 60%, transparent 100%)`;
@@ -133,3 +145,43 @@ window.onload = () => {
         render();
     }
 };
+
+//fucntion for the stars to kill themselves when time is up
+setInterval(() => {
+    let changed = false;
+
+    stars.forEach((star, index) => {
+        if (star.timeleft!== null) {
+            star.timeleft--;
+            changed = true;
+
+
+            const hours = Math.floor(star.timeleft / 3600);
+            const mins = Math.floor((star.timeleft % 3600) / 60);
+            const secs = star.timeleft % 60;
+
+            // Format as HH:MM:SS
+            const timeStr = `${hours}h ${mins}m ${secs}s`;
+            star.el.querySelector('span').innerHTML = `${star.name} <br> <small style="opacity:0.7">${timeStr}</small>`;
+
+            // DEATH LOGIC
+            if (star.timeleft <= 0) {
+                star.el.style.filter = "brightness(5) blur(10px)"; // "Supernova" effect
+                star.el.style.opacity = '0';
+
+                setTimeout(() => {
+                    const idx = stars.indexOf(star);
+                    if (idx > -1) stars.splice(idx, 1);
+                    star.el.remove();
+                    saveGalaxy();
+                }, 500);
+            }
+        }
+    });
+
+    if (changed) render(); // Re-render to update the labels
+}, 1000);
+
+
+
+
