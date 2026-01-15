@@ -20,9 +20,9 @@ function addStar() {
         name: input.value,
         domain: domainKey,
         x: domainConfig.x + (Math.random() - 0.5) * 400,
-        // SHIFTED Y: Moves spawn area up away from the bottom UI bar
+        
         y: (domainConfig.y - 200) + (Math.random() - 0.5) * 400,
-        // CLOSER START: -300 for urgent, -800 for normal (makes them bigger)
+        
         z: priority === 'high' ? -300 : -800, 
         color: domainConfig.color,
         el: document.createElement('div')
@@ -88,15 +88,15 @@ function render() {
     lineContainer.innerHTML = svgContent;
 }
 
-// INTUITIVE CLAMPED SCROLLING
+
 window.addEventListener('wheel', (e) => {
     e.preventDefault();
     stars.forEach(star => {
         star.z += e.deltaY * 0.8; 
         
-        // LIMITS: Prevents stars flying past head (Intuitive Hard Stop)
+    
         if (star.z > -100) star.z = -100; 
-        // LIMITS: Prevents stars disappearing into infinity
+        
         if (star.z < -3000) star.z = -3000;
     });
     render();
