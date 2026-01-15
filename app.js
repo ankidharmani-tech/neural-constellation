@@ -50,7 +50,7 @@ function addStar() {
     render();
 }
 
-// Updated Render for Domain-Specific Lines
+/
 function render() {
     const lineContainer = document.getElementById('lines');
     let svgContent = "";
@@ -65,7 +65,7 @@ function render() {
         star.el.style.opacity = scale;
         star.el.style.fontSize = scale > 0.5 ? "12px" : "0px";
 
-        // BRAIN MOVE: Connect to the previous star IN THE SAME DOMAIN
+    
         const sameDomainStars = stars.filter(s => s.domain === star.domain);
         const myIdx = sameDomainStars.indexOf(star);
         
