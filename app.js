@@ -9,7 +9,7 @@ const domains = {
 };
 
 function addStar() {
-    const input = document.getElementById('taskInput');
+    const Tinput = document.getElementById('taskInput');
     const domainKey = document.getElementById('domainInput').value;
     const priority = document.getElementById('priorityInput').value;
 
@@ -17,13 +17,14 @@ function addStar() {
     const M = parseInt(document.getElementById('custom-minutes').value) || 0;
     const S = parseInt(document.getElementById('custom-seconds').value) || 0;
 
-    if (!taskName) {
+
+    if (!Tinput.value.trim()) {
         //changes the border color red if task is empty
-        input.style.borderBottom = "1px solid red";
-        input.placeholder = "Name required!";
+        Tinput.style.borderBottom = "1px solid red";
+        Tinput.placeholder = "Name required!";
         setTimeout(() => {
-            input.style.borderBottom = "1px solid cyan";
-            input.placeholder = "Enter task name";
+            Tinput.style.borderBottom = "1px solid cyan";
+            Tinput.placeholder = "Enter task name";
         }, 2000);
         return;
     }
@@ -31,7 +32,7 @@ function addStar() {
     const domainConfig = domains[domainKey];
 
     const starData = {
-        name: input.value,
+        name: Tinput.value,
         domain: domainKey,
         x: domainConfig.x + (Math.random() - 0.5) * 400,
         y: domainConfig.y + (Math.random() - 0.5) * 400,
