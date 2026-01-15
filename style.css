@@ -1,11 +1,16 @@
+:root{
+    --main-color:cyan;
+    --border-clr:darkcyan ;
+    --bg-color: #252525;
+}
+
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #00152a 0%, #000 100%);
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
     color: white;
     font-family: 'Segoe UI', sans-serif;
 }
-
 #scene {
     width: 100vw;
     height: 100vh;
@@ -56,31 +61,91 @@ body {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 255, 255, 0.2);
     display: flex;
-    gap: 15px;
+    /*gap: 15px;*/
+
+
+    flex-direction: row;      /* Force horizontal */
+    align-items: center;      /* Center items vertically */
+    gap: 12px;                /* Consistent spacing */
+    white-space: nowrap;      /* Prevent any internal text wrapping */
+    max-width: 95vw;
+
+
+
 }
 
-#taskInput {
+.ui input {
     background: transparent;
     border: none;
     border-bottom: 1px solid cyan;
     color: white;
     outline: none;
+    /*text-align: center;*/
     width: 200px;
 }
 
-button {
+select{
     background: cyan;
     border: none;
-    padding: 8px 20px;
+    padding: 10px;
+    text-align: center;
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
 }
 
+.input-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-right: 1px solid rgba(0, 255, 255, 0.3); /* Subtle divider */
+    padding-right: 10px;
+}
+/* Remove the annoying up/down arrows on number inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input-container input{
+    /*width: 50px;*/
+    /*height: 50px;*/
+
+    width: 35px; /* Narrower for just 2 digits */
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.5);
+    color: cyan;
+    text-align: center;
+    outline: none;
+    font-family: inherit;
+
+}
+
+button{
+    background: cyan;
+    border: none;
+    padding: 8px 20px;
+    border-radius:20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+#taskInput{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid cyan;
+    color: white;
+    outline: none;
+    min-width: 150px;
+}
 button:hover {
     box-shadow: 0 0 20px cyan;
-    transform: scale(1.05);
+    transform: scale(1.005);
 }
 
 /* Make Urgent stars pulse faster to catch your eye */
@@ -91,15 +156,4 @@ button:hover {
 @keyframes urgentPulse {
     from { filter: brightness(1); box-shadow: 0 0 20px cyan; }
     to { filter: brightness(1.8); box-shadow: 0 0 40px white; }
-}
-
-/* Background "Space Dust" */
-#scene::before {
-    content: "";
-    position: absolute;
-    width: 200%; height: 200%;
-    background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px);
-    background-size: 100px 100px;
-    opacity: 0.05;
-    z-index: 0;
 }

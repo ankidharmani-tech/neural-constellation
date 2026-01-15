@@ -13,7 +13,20 @@ function addStar() {
     const domainKey = document.getElementById('domainInput').value;
     const priority = document.getElementById('priorityInput').value;
 
-    if (!input.value) return;
+    const H = parseInt(document.getElementById('custom-hours').value) || 0;
+    const M = parseInt(document.getElementById('custom-minutes').value) || 0;
+    const S = parseInt(document.getElementById('custom-seconds').value) || 0;
+
+    if (!taskName) {
+        //changes the border color red if task is empty
+        input.style.borderBottom = "1px solid red";
+        input.placeholder = "Name required!";
+        setTimeout(() => {
+            input.style.borderBottom = "1px solid cyan";
+            input.placeholder = "Enter task name";
+        }, 2000);
+        return;
+    }
 
     const domainConfig = domains[domainKey];
 
@@ -31,7 +44,7 @@ function addStar() {
     starData.el.style.background = `radial-gradient(circle, #fff 0%, ${starData.color} 60%, transparent 100%)`;
     starData.el.style.boxShadow = `0 0 20px ${starData.color}`;
     starData.el.innerHTML = `<span>${starData.name}</span>`;
-    
+
     // Add Click to Delete with Save
     starData.el.onclick = () => {
         starData.el.style.opacity = '0';
@@ -49,7 +62,6 @@ function addStar() {
     input.value = '';
     render();
 }
-
 // Updated Render for Domain-Specific Lines
 function render() {
     const lineContainer = document.getElementById('lines');

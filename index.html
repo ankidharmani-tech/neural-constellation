@@ -13,18 +13,23 @@
 
 <div class="ui">
 
-    <input type="text" id="taskInput" placeholder="Enter task name"/>
-    
+    <div class="input-container">
+        <input type="number" id="custom-hours" placeholder="HH" min="0">
+        <input type="number" id="custom-minutes" placeholder="MM" min="0" max="59" >
+        <input type="number" id="custom-seconds" placeholder="SS" min="0" max="59">
+    </div>
+    <input type="text" id="taskInput" placeholder="    Enter task name"/>
+
     <select id="domainInput">
-        <option value="Work"> Work</option>
+        <option class="blu-1" value="Work"> Work</option>
         <option value="Personal">Personal</option>
-        <option value="Study"></option>Study</option>
+        <option value="Study">Study</option>
     </select>
 
-    <select id="priorityInput">
+    <select class="blu" id="priorityInput">
         <option value="low">Low Priority</option>
         <option value="high">Urgent!</option>
     </select>
 
-    <button onclick="addStar()">Birth Star</button>
+    <button class="blu" onclick="addStar()">Birth Star</button>
 </div>
