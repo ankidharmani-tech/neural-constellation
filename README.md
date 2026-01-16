@@ -10,7 +10,7 @@ Each task is born as a star
 
 Color represents the task domain (study, health, personal, etc.)
 
-Depth (Z-axis proximity) represents urgency — more urgent tasks appear closer
+Depth (Z-axis proximity) represents urgency i.e. more urgent tasks appear closer
 
 Tasks from the same domain connect like neural pathways
 
