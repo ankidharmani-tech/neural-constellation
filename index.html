@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Neural Constellation</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="app.js" defer></script>
-    </head>
-    <body>
-        <div id="scene">
-            <div id="galaxy"></div>
-            <svg id="lines"></svg>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Constellation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+<div id="scene">
+    <div id="galaxy"></div>
+
+    <svg id="lines"></svg>
+</div>
 
 <div class="ui">
 
@@ -18,6 +22,7 @@
         <input type="number" id="custom-minutes" placeholder="MM" min="0" max="59" >
         <input type="number" id="custom-seconds" placeholder="SS" min="0" max="59">
     </div>
+
     <input type="text" id="taskInput" placeholder="    Enter task name"/>
 
     <select id="domainInput">
@@ -33,3 +38,6 @@
 
     <button class="blu" onclick="addStar()">Birth Star</button>
 </div>
+
+</body>
+</html>

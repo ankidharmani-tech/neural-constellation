@@ -149,11 +149,31 @@ button:hover {
 }
 
 /* Make Urgent stars pulse faster to catch your eye */
-.star[style*="scale(1)"] { /* High priority stars are larger */
+/* 1. Normal blinking for critical time (last 30 seconds) */
+.critical-state {
+    animation: criticalBlink 0.5s infinite alternate !important;
+}
+
+@keyframes criticalBlink {
+    from { opacity: 1; filter: brightness(1); }
+    to { opacity: 0.5; filter: brightness(2); }
+}
+
+/* 2. Pulsing for Urgent Stars */
+.star.urgent {
     animation: urgentPulse 1.5s infinite alternate;
+    z-index: 10; /* Keep urgent stars on top */
 }
 
 @keyframes urgentPulse {
-    from { filter: brightness(1); box-shadow: 0 0 20px cyan; }
-    to { filter: brightness(1.8); box-shadow: 0 0 40px white; }
+    0% {
+        box-shadow: 0 0 15px white, 0 0 30px red;
+        transform: translate3d(var(--tx), var(--ty), 0) scale(var(--s)) scale(1);
+    }
+    100% {
+        box-shadow: 0 0 25px white, 0 0 50px red;
+        filter: brightness(1.5);
+        /* We scale it slightly larger to catch the eye */
+        transform: translate3d(var(--tx), var(--ty), 0) scale(var(--s)) scale(1.2);
+    }
 }
